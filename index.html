@@ -3,73 +3,66 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>APDocentePBA v3 - Panel visual</title>
+  <title>APDocentePBA v3 - Panel</title>
   <style>
-    body{margin:0;font-family:Arial,system-ui,sans-serif;background:#f4f8ff;color:#061a37}
-    main{max-width:1080px;margin:auto;padding:22px}
-    .card{background:#fff;border:1px solid #dbe7f5;border-radius:20px;padding:18px;margin:14px 0;box-shadow:0 8px 22px rgba(20,40,70,.06)}
-    .top{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    input{padding:12px;border:1px solid #cfe0f2;border-radius:12px;min-width:min(520px,100%)}
-    button{padding:12px 16px;border:0;border-radius:12px;background:#0b58b8;color:white;font-weight:700;cursor:pointer}
-    .pill{display:inline-block;border:1px solid #dbe7f5;border-radius:999px;padding:6px 10px;margin:3px;background:#f8fbff}
-    .ok{color:#0c7a4b;font-weight:700}.bad{color:#a32323;font-weight:700}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
-    .a{border:1px solid #dbe7f5;border-radius:18px;padding:14px;background:#fff}
-    .a h3{margin:0 0 8px}.m{color:#53657c;font-size:14px;line-height:1.45}
-    pre{background:#061a37;color:white;border-radius:14px;padding:14px;white-space:pre-wrap;max-height:260px;overflow:auto}
-    .small{color:#53657c;font-size:13px}
+    :root{--bg:#eef5ff;--ink:#071b37;--muted:#63748b;--card:#fff;--line:#d8e6f5;--brand:#0b58b8;--brand2:#0f7bdc;--ok:#0c7a4b;--bad:#a32323;--warn:#a66a00;--soft:#f7fbff}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,system-ui,sans-serif;background:linear-gradient(180deg,#eaf4ff 0%,#f7fbff 42%,#eef5ff 100%);color:var(--ink)}
+    .hero{background:linear-gradient(135deg,#082f6f,#0b58b8 55%,#1e9bff);color:white;padding:28px 18px 34px;border-bottom-left-radius:32px;border-bottom-right-radius:32px;box-shadow:0 16px 42px rgba(11,88,184,.22)}
+    .wrap{max-width:1160px;margin:auto}.heroTop{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:16px;background:white;color:#0b58b8;display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+    h1{margin:0;font-size:28px;letter-spacing:-.02em}.sub{margin:5px 0 0;color:#d9ecff}.search{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}input{flex:1;min-width:min(520px,100%);padding:14px 15px;border:0;border-radius:16px;font-size:15px;outline:0}button{padding:14px 18px;border:0;border-radius:16px;background:#071b37;color:white;font-weight:800;cursor:pointer}button:disabled{opacity:.6;cursor:not-allowed}
+    main{max-width:1160px;margin:-22px auto 40px;padding:0 18px}.gridTop{display:grid;grid-template-columns:1.3fr .7fr;gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 14px 34px rgba(20,54,95,.08);margin-bottom:16px}.stat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.statBox{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:14px}.statBox b{font-size:28px;display:block}.statBox span{color:var(--muted);font-size:13px}
+    h2{margin:0 0 14px;font-size:20px}.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:7px 11px;margin:3px;background:var(--soft);font-size:13px}.ok{color:var(--ok);font-weight:800}.bad{color:var(--bad);font-weight:800}.warn{color:var(--warn);font-weight:800}.muted{color:var(--muted)}
+    .chips{display:flex;gap:6px;flex-wrap:wrap}.chip{background:#edf6ff;border:1px solid #cfe2f7;color:#143a67;border-radius:999px;padding:7px 10px;font-size:13px;font-weight:700}.alerts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.alert{border:1px solid var(--line);border-radius:22px;background:white;padding:16px;position:relative;overflow:hidden}.alert:before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--brand),var(--brand2))}.alert h3{margin:4px 0 10px;font-size:18px}.meta{color:#52657d;font-size:14px;line-height:1.52}.meta div{margin:3px 0}.badge{display:inline-block;background:#ebf5ff;border:1px solid #cfe4fb;border-radius:999px;padding:5px 9px;color:#0b4f9c;font-weight:800;font-size:12px;margin-bottom:8px}
+    .preview{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}pre{background:#071b37;color:#eaf4ff;border-radius:18px;padding:14px;white-space:pre-wrap;max-height:360px;overflow:auto;font-size:13px}.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:20px;background:var(--soft)}
+    .footer{font-size:12px;color:var(--muted);text-align:center;margin:24px 0}.hidden{display:none!important}
+    @media(max-width:800px){.gridTop{grid-template-columns:1fr}.stat{grid-template-columns:repeat(2,1fr)}.hero{border-bottom-left-radius:22px;border-bottom-right-radius:22px}h1{font-size:23px}}
   </style>
 </head>
 <body>
+<header class="hero"><div class="wrap">
+  <div class="heroTop">
+    <div class="brand"><div class="logo">AP</div><div><h1>APDocentePBA v3</h1><p class="sub">Panel optimizado de alertas docentes</p></div></div>
+    <div><span class="pill" style="background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.28);color:white">Modo prueba · solo lectura</span></div>
+  </div>
+  <div class="search"><input id="uid" placeholder="Pegá tu user_id"><button id="btn" onclick="load()">Actualizar panel</button></div>
+</div></header>
 <main>
-  <section class="card">
-    <h1>APDocentePBA v3 - panel visual</h1>
-    <p class="small">Vista pública de prueba. Consume v3 staging. Solo lectura: no manda mensajes ni modifica datos.</p>
-    <div class="top">
-      <input id="uid" placeholder="Pegá user_id">
-      <button id="btn" onclick="load()">Actualizar</button>
-    </div>
+  <section class="gridTop">
+    <div class="card"><h2>Resumen</h2><div id="status">Cargando...</div><div id="stats" class="stat"></div></div>
+    <div class="card"><h2>Usuario y plan</h2><div id="userBox" class="muted">Sin datos cargados.</div></div>
   </section>
-  <section id="estado" class="card">Cargando...</section>
-  <section class="card"><h2>Alertas visibles</h2><div id="list" class="grid"></div></section>
-  <section class="card"><h2>Debug</h2><pre id="dbg"></pre></section>
+  <section class="card"><h2>Preferencias activas</h2><div id="prefs" class="muted">Sin datos cargados.</div></section>
+  <section class="card"><h2>Alertas visibles</h2><div id="list" class="alerts"></div></section>
+  <section class="card"><h2>Vista previa de mensajes</h2><p class="muted">Esto muestra lo que prepararía v3. No envía WhatsApp, Telegram ni mails.</p><div id="previews" class="preview"></div></section>
+  <section class="card"><h2>Debug técnico</h2><pre id="dbg"></pre></section>
+  <div class="footer">Production viejo sigue intacto. Esta página consume v3 staging y no modifica datos.</div>
 </main>
 <script>
 const API_BASE='https://alertasapd-v3-staging.apdocentepba.workers.dev';
 const qs=new URLSearchParams(location.search);
-const uidEl=document.getElementById('uid');
-const estadoEl=document.getElementById('estado');
-const listEl=document.getElementById('list');
-const dbgEl=document.getElementById('dbg');
-const btnEl=document.getElementById('btn');
+const uidEl=document.getElementById('uid'),btnEl=document.getElementById('btn'),statusEl=document.getElementById('status'),statsEl=document.getElementById('stats'),userBox=document.getElementById('userBox'),prefsEl=document.getElementById('prefs'),listEl=document.getElementById('list'),previewsEl=document.getElementById('previews'),dbgEl=document.getElementById('dbg');
 uidEl.value=qs.get('user_id')||'';
 function e(x){return String(x??'').replace(/[&<>]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[s]))}
 function nivel(x){return {E:'SECUNDARIA',A:'TECNICO PROFESIONAL',R:'SUPERIOR',T:'PRIMARIA/INICIAL',L:'ADULTOS'}[x]||x||'-'}
-function turno(x){return {M:'MANANA',T:'TARDE',V:'VESPERTINO',N:'NOCHE'}[x]||x||'-'}
-function fecha(x){
-  const s=String(x||'');
-  const m=s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
-  if(m) return m[3]+'/'+m[2]+'/'+m[1]+', '+m[4]+':'+m[5];
-  return s||'-';
-}
+function turno(x){return {M:'MAÑANA',T:'TARDE',V:'VESPERTINO',N:'NOCHE',VN:'VESPERTINO/NOCHE'}[x]||x||'-'}
+function fecha(x){const s=String(x||'');const m=s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);if(m)return m[3]+'/'+m[2]+'/'+m[1]+', '+m[4]+':'+m[5];return s||'-'}
+function chips(values){return (values&&values.length?values:['Sin restricción']).map(v=>'<span class="chip">'+e(v)+'</span>').join('')}
+function channelText(d,ch){return e((d.channels&&d.channels[ch]&&(d.channels[ch].text||d.channels[ch].subject+'\n\n'+d.channels[ch].text))||'Sin preview disponible')}
 async function load(){
-  btnEl.disabled=true;
-  estadoEl.innerHTML='Cargando...';listEl.innerHTML='';dbgEl.textContent='';
-  const userId=uidEl.value.trim();
-  if(!userId){estadoEl.innerHTML='<p class="bad">Falta user_id.</p>';btnEl.disabled=false;return;}
+  btnEl.disabled=true;statusEl.innerHTML='Cargando...';statsEl.innerHTML='';userBox.textContent='Cargando...';prefsEl.textContent='Cargando...';listEl.innerHTML='';previewsEl.innerHTML='';dbgEl.textContent='';
+  const userId=uidEl.value.trim();if(!userId){statusEl.innerHTML='<p class="bad">Falta user_id.</p>';btnEl.disabled=false;return}
   try{
     const url=API_BASE+'/api/v3/real-alerts-preview?user_id='+encodeURIComponent(userId)+'&_='+Date.now();
-    const r=await fetch(url,{cache:'no-store'});
-    const d=await r.json();
-    const ok=d.channels&&d.channels.pass;
-    estadoEl.innerHTML='<h2>Estado</h2><span class="pill">v3 '+e(d.version)+'</span><span class="pill">prefs '+e(d.preferences_source)+'</span><span class="pill '+(d.safety&&d.safety.reads_supabase?'ok':'bad')+'">Supabase '+(d.safety&&d.safety.reads_supabase?'OK':'NO')+'</span><span class="pill '+(d.abc&&d.abc.source_status==='ok'?'ok':'bad')+'">ABC '+e(d.abc&&d.abc.source_status)+'</span><span class="pill '+(ok?'ok':'bad')+'">canales espejo '+(ok?'OK':'NO')+'</span><p><b>'+e(d.count_visible_alerts)+'</b> alertas visibles</p>';
-    listEl.innerHTML=(d.visible_alerts||[]).map((a,i)=>'<article class="a"><h3>'+(i+1)+') '+e(a.panelTitle||a.cargo)+'</h3><div class="m"><div><b>ID:</b> '+e(a.idOferta)+'</div><div><b>Distrito:</b> '+e(a.distrito)+'</div><div><b>Escuela:</b> '+e(a.escuela)+'</div><div><b>Turno:</b> '+e(turno(a.turno))+'</div><div><b>Nivel:</b> '+e(nivel(a.nivelModalidad))+'</div><div><b>Cierre:</b> '+e(fecha(a.cierre))+'</div></div></article>').join('')||'<p>No hay alertas visibles.</p>';
-    dbgEl.textContent=JSON.stringify({ids:d.ids,counts:d.channels&&d.channels.counts,safety:d.safety},null,2);
-  }catch(err){
-    estadoEl.innerHTML='<p class="bad">Error: '+e(err.message||err)+'</p>';
-  }finally{
-    btnEl.disabled=false;
-  }
+    const r=await fetch(url,{cache:'no-store'});const d=await r.json();const ok=d.channels&&d.channels.pass;const supa=d.safety&&d.safety.reads_supabase;const abc=d.abc&&d.abc.source_status==='ok';
+    statusEl.innerHTML='<span class="pill '+(supa?'ok':'bad')+'">Supabase '+(supa?'OK':'NO')+'</span><span class="pill '+(abc?'ok':'bad')+'">ABC '+e(d.abc&&d.abc.source_status)+'</span><span class="pill '+(ok?'ok':'bad')+'">Canales espejo '+(ok?'OK':'NO')+'</span><span class="pill">'+e(d.preferences_source)+'</span><span class="pill">'+e(d.version)+'</span>';
+    statsEl.innerHTML='<div class="statBox"><b>'+e(d.count_visible_alerts??0)+'</b><span>Alertas visibles</span></div><div class="statBox"><b>'+e((d.channels&&d.channels.counts&&d.channels.counts.whatsapp)??0)+'</b><span>WhatsApp preview</span></div><div class="statBox"><b>'+e((d.channels&&d.channels.counts&&d.channels.counts.telegram)??0)+'</b><span>Telegram preview</span></div><div class="statBox"><b>'+e((d.channels&&d.channels.counts&&d.channels.counts.mail)??0)+'</b><span>Mail preview</span></div>';
+    const u=d.supabase_model&&d.supabase_model.user||{};const plan=d.supabase_model&&d.supabase_model.plan||{};const sub=d.supabase_model&&d.supabase_model.subscription||{};
+    userBox.innerHTML='<p><b>'+e((u.nombre||'')+' '+(u.apellido||''))+'</b></p><p>'+e(u.email||'-')+'</p><p><span class="pill">Plan '+e(plan.code||'-')+'</span><span class="pill '+(sub.status==='ACTIVE'?'ok':'warn')+'">'+e(sub.status||'-')+'</span></p>';
+    const p=d.preferences_core||{};prefsEl.innerHTML='<p><b>Distritos</b></p><div class="chips">'+chips(p.distritos)+'</div><p><b>Cargos / materias</b></p><div class="chips">'+chips(p.cargos)+'</div><p><b>Niveles</b></p><div class="chips">'+chips((p.niveles||[]).map(nivel))+'</div><p><b>Turnos</b></p><div class="chips">'+chips((p.turnos||[]).map(turno))+'</div>';
+    const alerts=d.visible_alerts||[];listEl.innerHTML=alerts.length?alerts.map((a,i)=>'<article class="alert"><span class="badge">ID '+e(a.idOferta)+'</span><h3>'+(i+1)+') '+e(a.panelTitle||a.cargo)+'</h3><div class="meta"><div><b>Distrito:</b> '+e(a.distrito)+'</div><div><b>Escuela:</b> '+e(a.escuela)+'</div><div><b>Turno:</b> '+e(turno(a.turno))+'</div><div><b>Nivel:</b> '+e(nivel(a.nivelModalidad))+'</div><div><b>Cierre:</b> '+e(fecha(a.cierre))+'</div></div></article>').join(''):'<div class="empty">No hay alertas visibles con tus filtros actuales.</div>';
+    previewsEl.innerHTML='<div><h3>WhatsApp</h3><pre>'+channelText(d,'whatsapp')+'</pre></div><div><h3>Telegram</h3><pre>'+channelText(d,'telegram')+'</pre></div><div><h3>Mail</h3><pre>'+channelText(d,'mail')+'</pre></div>';
+    dbgEl.textContent=JSON.stringify({ok:d.ok,ids:d.ids,counts:d.channels&&d.channels.counts,safety:d.safety,abc:d.abc&&{source_status:d.abc.source_status,total_offers_raw:d.abc.total_offers_raw}},null,2);
+  }catch(err){statusEl.innerHTML='<p class="bad">Error: '+e(err.message||err)+'</p>';userBox.textContent='No se pudo cargar.'}finally{btnEl.disabled=false}
 }
 load();
 </script>
