@@ -27,34 +27,51 @@
     <p class="small">Vista pública de prueba. Consume v3 staging. Solo lectura: no manda mensajes ni modifica datos.</p>
     <div class="top">
       <input id="uid" placeholder="Pegá user_id">
-      <button onclick="load()">Actualizar</button>
+      <button id="btn" onclick="load()">Actualizar</button>
     </div>
   </section>
-  <section id="status" class="card">Cargando...</section>
+  <section id="estado" class="card">Cargando...</section>
   <section class="card"><h2>Alertas visibles</h2><div id="list" class="grid"></div></section>
   <section class="card"><h2>Debug</h2><pre id="dbg"></pre></section>
 </main>
 <script>
 const API_BASE='https://alertasapd-v3-staging.apdocentepba.workers.dev';
 const qs=new URLSearchParams(location.search);
-uid.value=qs.get('user_id')||'';
+const uidEl=document.getElementById('uid');
+const estadoEl=document.getElementById('estado');
+const listEl=document.getElementById('list');
+const dbgEl=document.getElementById('dbg');
+const btnEl=document.getElementById('btn');
+uidEl.value=qs.get('user_id')||'';
 function e(x){return String(x??'').replace(/[&<>]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[s]))}
 function nivel(x){return {E:'SECUNDARIA',A:'TECNICO PROFESIONAL',R:'SUPERIOR',T:'PRIMARIA/INICIAL',L:'ADULTOS'}[x]||x||'-'}
 function turno(x){return {M:'MANANA',T:'TARDE',V:'VESPERTINO',N:'NOCHE'}[x]||x||'-'}
-function fecha(x){try{return x?new Date(x).toLocaleString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'-'}catch{return x||'-'}}
-async function load(){
-  status.innerHTML='Cargando...';list.innerHTML='';dbg.textContent='';
-  const userId=uid.value.trim();
-  if(!userId){status.innerHTML='<p class="bad">Falta user_id.</p>';return;}
-  const url=API_BASE+'/api/v3/real-alerts-preview?user_id='+encodeURIComponent(userId)+'&_='+Date.now();
-  const r=await fetch(url,{cache:'no-store'});
-  const d=await r.json();
-  const ok=d.channels&&d.channels.pass;
-  status.innerHTML='<h2>Estado</h2><span class="pill">v3 '+e(d.version)+'</span><span class="pill">prefs '+e(d.preferences_source)+'</span><span class="pill '+(d.safety&&d.safety.reads_supabase?'ok':'bad')+'">Supabase '+(d.safety&&d.safety.reads_supabase?'OK':'NO')+'</span><span class="pill '+(d.abc&&d.abc.source_status==='ok'?'ok':'bad')+'">ABC '+e(d.abc&&d.abc.source_status)+'</span><span class="pill '+(ok?'ok':'bad')+'">canales espejo '+(ok?'OK':'NO')+'</span><p><b>'+e(d.count_visible_alerts)+'</b> alertas visibles</p>';
-  list.innerHTML=(d.visible_alerts||[]).map((a,i)=>'<article class="a"><h3>'+(i+1)+') '+e(a.panelTitle||a.cargo)+'</h3><div class="m"><div><b>ID:</b> '+e(a.idOferta)+'</div><div><b>Distrito:</b> '+e(a.distrito)+'</div><div><b>Escuela:</b> '+e(a.escuela)+'</div><div><b>Turno:</b> '+e(turno(a.turno))+'</div><div><b>Nivel:</b> '+e(nivel(a.nivelModalidad))+'</div><div><b>Cierre:</b> '+e(fecha(a.cierre))+'</div></div></article>').join('')||'<p>No hay alertas visibles.</p>';
-  dbg.textContent=JSON.stringify({ids:d.ids,counts:d.channels&&d.channels.counts,safety:d.safety},null,2);
+function fecha(x){
+  const s=String(x||'');
+  const m=s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if(m) return m[3]+'/'+m[2]+'/'+m[1]+', '+m[4]+':'+m[5];
+  return s||'-';
 }
-load().catch(err=>status.innerHTML='<p class="bad">Error: '+e(err.message||err)+'</p>');
+async function load(){
+  btnEl.disabled=true;
+  estadoEl.innerHTML='Cargando...';listEl.innerHTML='';dbgEl.textContent='';
+  const userId=uidEl.value.trim();
+  if(!userId){estadoEl.innerHTML='<p class="bad">Falta user_id.</p>';btnEl.disabled=false;return;}
+  try{
+    const url=API_BASE+'/api/v3/real-alerts-preview?user_id='+encodeURIComponent(userId)+'&_='+Date.now();
+    const r=await fetch(url,{cache:'no-store'});
+    const d=await r.json();
+    const ok=d.channels&&d.channels.pass;
+    estadoEl.innerHTML='<h2>Estado</h2><span class="pill">v3 '+e(d.version)+'</span><span class="pill">prefs '+e(d.preferences_source)+'</span><span class="pill '+(d.safety&&d.safety.reads_supabase?'ok':'bad')+'">Supabase '+(d.safety&&d.safety.reads_supabase?'OK':'NO')+'</span><span class="pill '+(d.abc&&d.abc.source_status==='ok'?'ok':'bad')+'">ABC '+e(d.abc&&d.abc.source_status)+'</span><span class="pill '+(ok?'ok':'bad')+'">canales espejo '+(ok?'OK':'NO')+'</span><p><b>'+e(d.count_visible_alerts)+'</b> alertas visibles</p>';
+    listEl.innerHTML=(d.visible_alerts||[]).map((a,i)=>'<article class="a"><h3>'+(i+1)+') '+e(a.panelTitle||a.cargo)+'</h3><div class="m"><div><b>ID:</b> '+e(a.idOferta)+'</div><div><b>Distrito:</b> '+e(a.distrito)+'</div><div><b>Escuela:</b> '+e(a.escuela)+'</div><div><b>Turno:</b> '+e(turno(a.turno))+'</div><div><b>Nivel:</b> '+e(nivel(a.nivelModalidad))+'</div><div><b>Cierre:</b> '+e(fecha(a.cierre))+'</div></div></article>').join('')||'<p>No hay alertas visibles.</p>';
+    dbgEl.textContent=JSON.stringify({ids:d.ids,counts:d.channels&&d.channels.counts,safety:d.safety},null,2);
+  }catch(err){
+    estadoEl.innerHTML='<p class="bad">Error: '+e(err.message||err)+'</p>';
+  }finally{
+    btnEl.disabled=false;
+  }
+}
+load();
 </script>
 </body>
 </html>
