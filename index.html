@@ -9,24 +9,34 @@
     *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,system-ui,sans-serif;background:linear-gradient(180deg,#eaf4ff 0%,#f7fbff 44%,#eef5ff 100%);color:var(--ink)}
     .hero{background:radial-gradient(circle at 12% 10%,rgba(255,255,255,.28),transparent 28%),linear-gradient(135deg,#082f6f,#0b58b8 55%,#1e9bff);color:white;padding:28px 18px 36px;border-bottom-left-radius:34px;border-bottom-right-radius:34px;box-shadow:0 16px 42px rgba(11,88,184,.24)}
     .wrap{max-width:1160px;margin:auto}.heroTop{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}.brand{display:flex;gap:12px;align-items:center}.logo{width:52px;height:52px;border-radius:18px;background:white;color:#0b58b8;display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
-    h1{margin:0;font-size:29px;letter-spacing:-.03em}.sub{margin:5px 0 0;color:#d9ecff}.search{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}input{flex:1;min-width:min(520px,100%);padding:14px 15px;border:0;border-radius:16px;font-size:15px;outline:0}button{padding:14px 18px;border:0;border-radius:16px;background:#071b37;color:white;font-weight:800;cursor:pointer}button:disabled{opacity:.6;cursor:not-allowed}
+    h1{margin:0;font-size:29px;letter-spacing:-.03em}.sub{margin:5px 0 0;color:#d9ecff}.search{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}input{flex:1;min-width:min(320px,100%);padding:14px 15px;border:0;border-radius:16px;font-size:15px;outline:0}button{padding:14px 18px;border:0;border-radius:16px;background:#071b37;color:white;font-weight:800;cursor:pointer}button:disabled{opacity:.6;cursor:not-allowed}.secondary{background:#edf6ff!important;color:#0b4f9c!important;border:1px solid #cfe4fb!important}.ghost{background:rgba(255,255,255,.16)!important;color:white!important;border:1px solid rgba(255,255,255,.28)!important}
     main{max-width:1160px;margin:-24px auto 40px;padding:0 18px}.gridTop{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:18px;box-shadow:0 14px 34px rgba(20,54,95,.08);margin-bottom:16px}.stat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.statBox{background:var(--soft);border:1px solid var(--line);border-radius:20px;padding:14px}.statBox b{font-size:28px;display:block}.statBox span{color:var(--muted);font-size:13px}
     h2{margin:0 0 14px;font-size:20px}.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:7px 11px;margin:3px;background:var(--soft);font-size:13px}.ok{color:var(--ok);font-weight:800}.bad{color:var(--bad);font-weight:800}.muted{color:var(--muted)}
+    .loginGrid{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end}.loginGrid label{display:block;font-size:12px;color:var(--muted);font-weight:800;margin:0 0 5px}.loginGrid input{border:1px solid var(--line);min-width:0;width:100%}.loginStatus{margin-top:10px;font-size:13px}.manual{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.manual input{border:1px solid var(--line);min-width:min(520px,100%)}
     .channels{display:flex;gap:9px;flex-wrap:wrap}.ch{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:18px;background:white;padding:10px 12px;box-shadow:0 8px 20px rgba(20,54,95,.06)}.ico{width:34px;height:34px;border-radius:13px;display:grid;place-items:center;color:white;font-weight:900}.wa{background:var(--wa)}.tg{background:var(--tg)}.ml{background:var(--mail)}.ch b{display:block}.ch small{color:var(--muted)}
     .chips{display:flex;gap:6px;flex-wrap:wrap}.chip{background:#edf6ff;border:1px solid #cfe2f7;color:#143a67;border-radius:999px;padding:7px 10px;font-size:13px;font-weight:700}.carouselHead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.nav{display:flex;gap:8px}.nav button{padding:10px 13px;border-radius:14px;background:#edf6ff;color:#0b4f9c;border:1px solid #cfe4fb}.carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 18px;scrollbar-width:thin}.alert{min-width:min(390px,88vw);max-width:390px;scroll-snap-align:start;border:1px solid var(--line);border-radius:24px;background:white;position:relative;overflow:hidden;box-shadow:0 12px 28px rgba(20,54,95,.08)}.alertTop{background:linear-gradient(135deg,#0b58b8,#1e9bff);color:white;padding:15px 16px}.alertTop h3{margin:8px 0 0;font-size:19px}.badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:5px 9px;font-weight:800;font-size:12px}.alertBody{padding:15px 16px}.meta{color:#52657d;font-size:14px;line-height:1.55}.meta div{margin:4px 0}.miniChannels{display:flex;gap:7px;margin-top:13px}.mini{width:32px;height:32px;border-radius:12px;display:grid;place-items:center;color:white;font-size:14px;font-weight:900}
     .preview{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.previewCard{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:white}.previewTitle{display:flex;align-items:center;gap:10px;padding:13px 14px;border-bottom:1px solid var(--line);font-weight:900}pre{margin:0;background:#071b37;color:#eaf4ff;padding:14px;white-space:pre-wrap;max-height:340px;overflow:auto;font-size:13px}.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:20px;background:var(--soft)}.footer{font-size:12px;color:var(--muted);text-align:center;margin:24px 0}
-    @media(max-width:800px){.gridTop{grid-template-columns:1fr}.stat{grid-template-columns:repeat(2,1fr)}.hero{border-bottom-left-radius:22px;border-bottom-right-radius:22px}h1{font-size:23px}.alert{min-width:86vw}}
+    @media(max-width:800px){.gridTop,.loginGrid{grid-template-columns:1fr}.stat{grid-template-columns:repeat(2,1fr)}.hero{border-bottom-left-radius:22px;border-bottom-right-radius:22px}h1{font-size:23px}.alert{min-width:86vw}}
   </style>
 </head>
 <body>
 <header class="hero"><div class="wrap">
   <div class="heroTop">
     <div class="brand"><div class="logo">AP</div><div><h1>APDocentePBA v3</h1><p class="sub">Panel optimizado de alertas docentes</p></div></div>
-    <div><span class="pill" style="background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.28);color:white">Modo prueba · solo lectura</span></div>
+    <div><button class="ghost" onclick="logout()">Cerrar sesión local</button></div>
   </div>
-  <div class="search"><input id="uid" placeholder="Pegá tu user_id"><button id="btn" onclick="load()">Actualizar panel</button></div>
 </div></header>
 <main>
+  <section class="card">
+    <h2>Ingresar</h2>
+    <div class="loginGrid">
+      <div><label>Email</label><input id="email" type="email" autocomplete="username" placeholder="tu@email.com"></div>
+      <div><label>Contraseña</label><input id="password" type="password" autocomplete="current-password" placeholder="Contraseña"></div>
+      <button id="loginBtn" onclick="loginPassword()">Entrar</button>
+    </div>
+    <div class="manual"><input id="uid" placeholder="Modo prueba: pegar user_id manual"><button class="secondary" id="btn" onclick="load()">Actualizar panel</button><button class="secondary" disabled>Google próximamente</button></div>
+    <div id="loginStatus" class="loginStatus muted">El login por email/contraseña queda preparado. Google se deja para cuando estén las claves OAuth.</div>
+  </section>
   <section class="gridTop">
     <div class="card"><h2>Resumen</h2><div id="status">Cargando...</div><div id="stats" class="stat"></div></div>
     <div class="card"><h2>Canales</h2><div id="channelBox" class="channels"></div></div>
@@ -40,8 +50,8 @@
 <script>
 const API_BASE='https://alertasapd-v3-staging.apdocentepba.workers.dev';
 const qs=new URLSearchParams(location.search);
-const uidEl=document.getElementById('uid'),btnEl=document.getElementById('btn'),statusEl=document.getElementById('status'),statsEl=document.getElementById('stats'),userBox=document.getElementById('userBox'),prefsEl=document.getElementById('prefs'),listEl=document.getElementById('list'),previewsEl=document.getElementById('previews'),dbgEl=document.getElementById('dbg'),channelBox=document.getElementById('channelBox');
-uidEl.value=qs.get('user_id')||'';
+const uidEl=document.getElementById('uid'),btnEl=document.getElementById('btn'),loginBtn=document.getElementById('loginBtn'),emailEl=document.getElementById('email'),passEl=document.getElementById('password'),loginStatus=document.getElementById('loginStatus'),statusEl=document.getElementById('status'),statsEl=document.getElementById('stats'),userBox=document.getElementById('userBox'),prefsEl=document.getElementById('prefs'),listEl=document.getElementById('list'),previewsEl=document.getElementById('previews'),dbgEl=document.getElementById('dbg'),channelBox=document.getElementById('channelBox');
+uidEl.value=qs.get('user_id')||localStorage.getItem('apd_v3_user_id')||'';emailEl.value=localStorage.getItem('apd_v3_email')||'';
 function e(x){return String(x??'').replace(/[&<>]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[s]))}
 function nivel(x){return {E:'SECUNDARIA',A:'TECNICO PROFESIONAL',R:'SUPERIOR',T:'PRIMARIA/INICIAL',L:'ADULTOS'}[x]||x||'-'}
 function turno(x){return {M:'MAÑANA',T:'TARDE',V:'VESPERTINO',N:'NOCHE',VN:'VESPERTINO/NOCHE'}[x]||x||'-'}
@@ -49,9 +59,28 @@ function fecha(x){const s=String(x||'');const m=s.match(/^(\d{4})-(\d{2})-(\d{2}
 function chips(values){return (values&&values.length?values:['Sin restricción']).map(v=>'<span class="chip">'+e(v)+'</span>').join('')}
 function channelText(d,ch){return e((d.channels&&d.channels[ch]&&(d.channels[ch].text||((d.channels[ch].subject||'')+'\n\n'+d.channels[ch].text)))||'Sin preview disponible')}
 function moveCar(dir){listEl.scrollBy({left:dir*420,behavior:'smooth'})}
+function setLoginMsg(msg,type){loginStatus.className='loginStatus '+(type||'muted');loginStatus.textContent=msg}
+async function loginPassword(){
+  const email=emailEl.value.trim();const password=passEl.value;
+  if(!email||!password){setLoginMsg('Completá email y contraseña.','bad');return}
+  loginBtn.disabled=true;setLoginMsg('Ingresando...','muted');
+  try{
+    const r=await fetch(API_BASE+'/api/v3/auth-login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+    const d=await r.json().catch(()=>({ok:false,error:'Respuesta inválida del backend'}));
+    if(!r.ok||!d.ok) throw new Error(d.error||d.reason||'Login no habilitado todavía en el Worker staging');
+    const appUserId=d.app_user_id||d.user_id||d.user?.id||d.model?.user?.id;
+    if(!appUserId) throw new Error('Login OK, pero no vino user_id de aplicación.');
+    localStorage.setItem('apd_v3_user_id',appUserId);localStorage.setItem('apd_v3_email',email);localStorage.setItem('apd_v3_token',d.access_token||d.session?.access_token||'');
+    uidEl.value=appUserId;passEl.value='';setLoginMsg('Sesión iniciada. Cargando panel...','ok');load();
+  }catch(err){
+    setLoginMsg('Login pendiente/no disponible: '+(err.message||err)+'. Podés seguir usando user_id manual.','bad');
+  }finally{loginBtn.disabled=false}
+}
+function logout(){localStorage.removeItem('apd_v3_user_id');localStorage.removeItem('apd_v3_email');localStorage.removeItem('apd_v3_token');uidEl.value='';setLoginMsg('Sesión local borrada.','muted')}
 async function load(){
   btnEl.disabled=true;statusEl.innerHTML='Cargando...';statsEl.innerHTML='';userBox.textContent='Cargando...';prefsEl.textContent='';listEl.innerHTML='';previewsEl.innerHTML='';dbgEl.textContent='';channelBox.innerHTML='';
-  const userId=uidEl.value.trim();if(!userId){statusEl.innerHTML='<p class="bad">Falta user_id.</p>';btnEl.disabled=false;return}
+  const userId=uidEl.value.trim();if(!userId){statusEl.innerHTML='<p class="bad">Falta user_id o login.</p>';userBox.textContent='Iniciá sesión o pegá un user_id de prueba.';btnEl.disabled=false;return}
+  localStorage.setItem('apd_v3_user_id',userId);
   try{
     const url=API_BASE+'/api/v3/real-alerts-preview?user_id='+encodeURIComponent(userId)+'&_='+Date.now();
     const r=await fetch(url,{cache:'no-store'});const d=await r.json();const ok=d.channels&&d.channels.pass;const supa=d.safety&&d.safety.reads_supabase;const abc=d.abc&&d.abc.source_status==='ok';const c=d.channels&&d.channels.counts||{};
