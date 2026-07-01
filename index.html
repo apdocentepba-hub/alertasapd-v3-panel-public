@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>APDocentePBA v3 - Panel visual</title>
+  <style>
+    body{margin:0;font-family:Arial,system-ui,sans-serif;background:#f4f8ff;color:#061a37}
+    main{max-width:1080px;margin:auto;padding:22px}
+    .card{background:#fff;border:1px solid #dbe7f5;border-radius:20px;padding:18px;margin:14px 0;box-shadow:0 8px 22px rgba(20,40,70,.06)}
+    .top{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    input{padding:12px;border:1px solid #cfe0f2;border-radius:12px;min-width:min(520px,100%)}
+    button{padding:12px 16px;border:0;border-radius:12px;background:#0b58b8;color:white;font-weight:700;cursor:pointer}
+    .pill{display:inline-block;border:1px solid #dbe7f5;border-radius:999px;padding:6px 10px;margin:3px;background:#f8fbff}
+    .ok{color:#0c7a4b;font-weight:700}.bad{color:#a32323;font-weight:700}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+    .a{border:1px solid #dbe7f5;border-radius:18px;padding:14px;background:#fff}
+    .a h3{margin:0 0 8px}.m{color:#53657c;font-size:14px;line-height:1.45}
+    pre{background:#061a37;color:white;border-radius:14px;padding:14px;white-space:pre-wrap;max-height:260px;overflow:auto}
+    .small{color:#53657c;font-size:13px}
+  </style>
+</head>
+<body>
+<main>
+  <section class="card">
+    <h1>APDocentePBA v3 - panel visual</h1>
+    <p class="small">Vista pública de prueba. Consume v3 staging. Solo lectura: no manda mensajes ni modifica datos.</p>
+    <div class="top">
+      <input id="uid" placeholder="Pegá user_id">
+      <button onclick="load()">Actualizar</button>
+    </div>
+  </section>
+  <section id="status" class="card">Cargando...</section>
+  <section class="card"><h2>Alertas visibles</h2><div id="list" class="grid"></div></section>
+  <section class="card"><h2>Debug</h2><pre id="dbg"></pre></section>
+</main>
+<script>
+const API_BASE='https://alertasapd-v3-staging.apdocentepba.workers.dev';
+const qs=new URLSearchParams(location.search);
+uid.value=qs.get('user_id')||'';
+function e(x){return String(x??'').replace(/[&<>]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[s]))}
+function nivel(x){return {E:'SECUNDARIA',A:'TECNICO PROFESIONAL',R:'SUPERIOR',T:'PRIMARIA/INICIAL',L:'ADULTOS'}[x]||x||'-'}
+function turno(x){return {M:'MANANA',T:'TARDE',V:'VESPERTINO',N:'NOCHE'}[x]||x||'-'}
+function fecha(x){try{return x?new Date(x).toLocaleString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'-'}catch{return x||'-'}}
+async function load(){
+  status.innerHTML='Cargando...';list.innerHTML='';dbg.textContent='';
+  const userId=uid.value.trim();
+  if(!userId){status.innerHTML='<p class="bad">Falta user_id.</p>';return;}
+  const url=API_BASE+'/api/v3/real-alerts-preview?user_id='+encodeURIComponent(userId)+'&_='+Date.now();
+  const r=await fetch(url,{cache:'no-store'});
+  const d=await r.json();
+  const ok=d.channels&&d.channels.pass;
+  status.innerHTML='<h2>Estado</h2><span class="pill">v3 '+e(d.version)+'</span><span class="pill">prefs '+e(d.preferences_source)+'</span><span class="pill '+(d.safety&&d.safety.reads_supabase?'ok':'bad')+'">Supabase '+(d.safety&&d.safety.reads_supabase?'OK':'NO')+'</span><span class="pill '+(d.abc&&d.abc.source_status==='ok'?'ok':'bad')+'">ABC '+e(d.abc&&d.abc.source_status)+'</span><span class="pill '+(ok?'ok':'bad')+'">canales espejo '+(ok?'OK':'NO')+'</span><p><b>'+e(d.count_visible_alerts)+'</b> alertas visibles</p>';
+  list.innerHTML=(d.visible_alerts||[]).map((a,i)=>'<article class="a"><h3>'+(i+1)+') '+e(a.panelTitle||a.cargo)+'</h3><div class="m"><div><b>ID:</b> '+e(a.idOferta)+'</div><div><b>Distrito:</b> '+e(a.distrito)+'</div><div><b>Escuela:</b> '+e(a.escuela)+'</div><div><b>Turno:</b> '+e(turno(a.turno))+'</div><div><b>Nivel:</b> '+e(nivel(a.nivelModalidad))+'</div><div><b>Cierre:</b> '+e(fecha(a.cierre))+'</div></div></article>').join('')||'<p>No hay alertas visibles.</p>';
+  dbg.textContent=JSON.stringify({ids:d.ids,counts:d.channels&&d.channels.counts,safety:d.safety},null,2);
+}
+load().catch(err=>status.innerHTML='<p class="bad">Error: '+e(err.message||err)+'</p>');
+</script>
+</body>
+</html>
